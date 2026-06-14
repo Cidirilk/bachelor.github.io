@@ -48,7 +48,7 @@ export default function App() {
     <div className="app">
       <header className="hero">
         <p className="hero__badge">Οι κουμπάροι σας καλούν</p>
-        <h1 className="hero__title">Μάζωξη πριν τον γάμο</h1>
+        <h1 className="hero__title">Bachelor Party</h1>
         <p className="hero__dates">
           Παρασκευή 28 · Σάββατο 29 · Κυριακή πρωί 30 Αυγούστου
         </p>
