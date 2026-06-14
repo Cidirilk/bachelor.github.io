@@ -2,6 +2,14 @@
   margin-bottom: 1.25rem;
 }
 
+.rsvp-form__hero {
+  width: 100%;
+  max-height: 280px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+}
+
 .rsvp-form__greeting {
   margin: 0;
   font-size: 1.1rem;

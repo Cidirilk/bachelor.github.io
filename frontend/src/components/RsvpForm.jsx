@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { RSVP_OPTIONS, EMPTY_RSVP } from '../constants';
 import { submitRsvp } from '../api';
+import bachelorHero from '../assets/bachelor-hero.png';
 import './RsvpForm.css';
 
 function buildInitialRsvp(existing) {
@@ -53,6 +54,11 @@ export default function RsvpForm({ guest, onSubmitted, onBack }) {
   return (
     <section className="rsvp-form card">
       <header className="rsvp-form__header">
+        <img
+          src={bachelorHero}
+          alt="Bachelor party"
+          className="rsvp-form__hero"
+        />
         <p className="rsvp-form__greeting">
           Γεια σου, <strong>{guest.name}</strong>! 👋
         </p>
