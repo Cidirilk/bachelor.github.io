@@ -1,0 +1,40 @@
+.phone-gate {
+  text-align: center;
+}
+
+.phone-gate__icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.phone-gate h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.35rem;
+}
+
+.phone-gate__hint {
+  color: var(--text-muted);
+  margin: 0 0 1.5rem;
+  font-size: 0.95rem;
+}
+
+.phone-gate__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.phone-gate__form input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 1.1rem;
+  text-align: center;
+  letter-spacing: 0.05em;
+  background: var(--surface);
+}
+
+.phone-gate__form input:focus {
+  border-color: var(--accent);
+}

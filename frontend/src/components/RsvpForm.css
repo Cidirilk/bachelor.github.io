@@ -1,0 +1,93 @@
+.rsvp-form__header {
+  margin-bottom: 1.25rem;
+}
+
+.rsvp-form__greeting {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.rsvp-form__options {
+  border: none;
+  padding: 0;
+  margin: 0 0 1.25rem;
+}
+
+.rsvp-form__options legend {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  padding: 0;
+}
+
+.rsvp-form__day-group {
+  margin-bottom: 1rem;
+}
+
+.rsvp-form__day {
+  margin: 0 0 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0.85rem;
+  margin-bottom: 0.4rem;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.checkbox-row:hover {
+  background: var(--accent-soft);
+}
+
+.checkbox-row input[type='checkbox'] {
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--accent);
+  flex-shrink: 0;
+}
+
+.checkbox-row__label {
+  font-size: 0.95rem;
+}
+
+.rsvp-form__field {
+  margin-bottom: 1rem;
+}
+
+.rsvp-form__field label {
+  display: block;
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: 0.35rem;
+}
+
+.rsvp-form__field textarea {
+  width: 100%;
+  padding: 0.75rem 0.85rem;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  resize: vertical;
+  min-height: 3rem;
+  background: var(--surface);
+}
+
+.rsvp-form__field textarea:focus {
+  border-color: var(--accent);
+}
+
+.rsvp-form__actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  margin-top: 1.25rem;
+}

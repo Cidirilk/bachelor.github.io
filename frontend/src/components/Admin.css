@@ -1,0 +1,158 @@
+.admin {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.admin__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.admin__header h1 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.admin__back {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.admin__login form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.admin__login input {
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.admin__totals {
+  margin-bottom: 1rem;
+}
+
+.admin__totals h2,
+.admin__guests h2 {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+}
+
+.admin__totals-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.admin__totals-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.admin__totals-list li:last-child {
+  border-bottom: none;
+}
+
+.admin__summary {
+  margin: 1rem 0 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.admin__guests-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.admin__guests-header h2 {
+  margin: 0;
+}
+
+.admin__table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.admin table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.admin th,
+.admin td {
+  padding: 0.5rem 0.4rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.admin th:first-child,
+.admin td:first-child {
+  text-align: left;
+  position: sticky;
+  left: 0;
+  background: var(--surface);
+}
+
+.admin th {
+  font-weight: 600;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.admin td.yes {
+  color: var(--success);
+  font-weight: 700;
+}
+
+.admin td.no {
+  color: var(--text-muted);
+}
+
+.admin__no-response td:first-child {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.admin__allergies {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left !important;
+}
+
+.admin__refresh {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .admin__login form {
+    flex-direction: row;
+  }
+
+  .admin__login input {
+    flex: 1;
+  }
+
+  .admin__login .btn--primary {
+    width: auto;
+  }
+}

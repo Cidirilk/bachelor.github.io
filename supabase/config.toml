@@ -1,0 +1,16 @@
+# Supabase local development config
+# See: https://supabase.com/docs/guides/cli/config
+
+[api]
+enabled = true
+port = 54321
+
+[db]
+port = 54322
+
+[studio]
+enabled = true
+port = 54323
+
+[functions]
+# Edge functions are deployed separately via `supabase functions deploy`

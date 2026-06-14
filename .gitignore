@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+
+# Supabase
+.supabase/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Secrets — never commit
+.env
+*.env.local
