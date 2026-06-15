@@ -50,7 +50,7 @@ export default function App() {
         <p className="hero__badge">Οι κουμπάροι σας καλούν</p>
         <h1 className="hero__title">Bachelor Party RSVP</h1>
         <p className="hero__dates">
-          Παρασκευή 28 · Σάββατο 29 · Κυριακή πρωί 30 Αυγούστου
+          Σάββατο 29 · Κυριακή 30 Αυγούστου
         </p>
       </header>
 

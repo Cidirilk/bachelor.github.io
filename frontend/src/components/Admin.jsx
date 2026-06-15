@@ -13,20 +13,20 @@ function downloadCsv(rows, filename) {
   URL.revokeObjectURL(url);
 }
 
+function getAttendanceLabel(rsvp) {
+  if (!rsvp) return 'Δεν απάντησε';
+  const opt = RSVP_OPTIONS.find((o) => rsvp[o.key]);
+  return opt ? opt.label : 'Δεν επέλεξε';
+}
+
 function buildCsv(guests) {
-  const headers = [
-    'Όνομα',
-    ...RSVP_OPTIONS.map((o) => o.label),
-    'Αλλεργίες',
-    'Σημειώσεις',
-    'Ενημερώθηκε',
-  ];
+  const headers = ['Όνομα', 'Επιλογή', 'Αλλεργίες', 'Σημειώσεις', 'Ενημερώθηκε'];
 
   const rows = guests.map((g) => {
     const r = g.rsvp || {};
     return [
       g.name,
-      ...RSVP_OPTIONS.map((o) => (r[o.key] ? 'Ναι' : 'Όχι')),
+      getAttendanceLabel(g.rsvp),
       r.allergies || '',
       r.notes || '',
       r.updated_at || '',
@@ -97,7 +97,7 @@ export default function Admin() {
       {data && (
         <>
           <section className="admin__totals card">
-            <h2>Σύνολα ανά δραστηριότητα</h2>
+            <h2>Σύνολα</h2>
             <ul className="admin__totals-list">
               {RSVP_OPTIONS.map((o) => (
                 <li key={o.key}>
@@ -125,12 +125,9 @@ export default function Admin() {
                 <thead>
                   <tr>
                     <th>Όνομα</th>
-                    {RSVP_OPTIONS.map((o) => (
-                      <th key={o.key} title={o.label}>
-                        {o.label.split(' ').pop()}
-                      </th>
-                    ))}
+                    <th>Επιλογή</th>
                     <th>Αλλεργίες</th>
+                    <th>Σημειώσεις</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -139,12 +136,9 @@ export default function Admin() {
                     return (
                       <tr key={g.id} className={!g.rsvp ? 'admin__no-response' : ''}>
                         <td>{g.name}</td>
-                        {RSVP_OPTIONS.map((o) => (
-                          <td key={o.key} className={r[o.key] ? 'yes' : 'no'}>
-                            {r[o.key] ? '✓' : '—'}
-                          </td>
-                        ))}
+                        <td>{getAttendanceLabel(g.rsvp)}</td>
                         <td className="admin__allergies">{r.allergies || '—'}</td>
+                        <td>{r.notes || '—'}</td>
                       </tr>
                     );
                   })}

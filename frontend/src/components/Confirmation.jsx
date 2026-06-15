@@ -2,7 +2,7 @@ import { RSVP_OPTIONS } from '../constants';
 import './Confirmation.css';
 
 export default function Confirmation({ guest, rsvp, onEdit }) {
-  const selected = RSVP_OPTIONS.filter((o) => rsvp[o.key]);
+  const selected = RSVP_OPTIONS.find((o) => rsvp[o.key]);
 
   return (
     <section className="confirmation card">
@@ -14,15 +14,13 @@ export default function Confirmation({ guest, rsvp, onEdit }) {
         Η απάντησή σου καταχωρήθηκε. Μπορείς να την αλλάξεις οποιαδήποτε στιγμή.
       </p>
 
-      {selected.length > 0 ? (
-        <ul className="confirmation__list">
-          {selected.map((o) => (
-            <li key={o.key}>{o.label}</li>
-          ))}
-        </ul>
+      {selected ? (
+        <p className="confirmation__choice">
+          📋 <strong>{selected.label}</strong>
+        </p>
       ) : (
         <p className="confirmation__none">
-          Δεν επέλεξες κάποια δραστηριότητα — αν αλλάξει κάτι, ξαναμπες να
+          Δεν επέλεξες κάποια επιλογή — αν αλλάξει κάτι, ξαναμπες να
           ενημερώσεις!
         </p>
       )}

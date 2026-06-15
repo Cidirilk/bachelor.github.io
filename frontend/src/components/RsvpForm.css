@@ -28,44 +28,38 @@
   padding: 0;
 }
 
-.rsvp-form__day-group {
-  margin-bottom: 1rem;
-}
-
-.rsvp-form__day {
-  margin: 0 0 0.5rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.checkbox-row {
+.radio-row {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.7rem 0.85rem;
-  margin-bottom: 0.4rem;
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.5rem;
   background: var(--bg);
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: background 0.15s;
+  border: 2px solid transparent;
 }
 
-.checkbox-row:hover {
+.radio-row:hover {
   background: var(--accent-soft);
 }
 
-.checkbox-row input[type='checkbox'] {
+.radio-row:has(input:checked) {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.radio-row input[type='radio'] {
   width: 1.15rem;
   height: 1.15rem;
   accent-color: var(--accent);
   flex-shrink: 0;
 }
 
-.checkbox-row__label {
-  font-size: 0.95rem;
+.radio-row__label {
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 .rsvp-form__field {

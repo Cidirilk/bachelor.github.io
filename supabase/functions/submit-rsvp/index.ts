@@ -51,7 +51,6 @@ Deno.serve(async (req) => {
       return errorResponse('Μη εξουσιοδοτημένη υποβολή.');
     }
 
-    // Build RSVP record with boolean fields
     const record: Record<string, unknown> = {
       guest_id: guest.id,
       allergies: String(rsvp.allergies || '').slice(0, 500),
@@ -62,7 +61,6 @@ Deno.serve(async (req) => {
       record[field] = Boolean(rsvp[field]);
     }
 
-    // Upsert — guest_id is unique key, allows updates
     const { error: upsertError } = await supabase
       .from('rsvps')
       .upsert(record, { onConflict: 'guest_id' });
