@@ -17,6 +17,8 @@ const RSVP_FIELDS = [
   'sunday_breakfast',
 ] as const;
 
+const OVERNIGHT_LIMIT = 12;
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders });
@@ -39,7 +41,6 @@ Deno.serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
     );
 
-    // Re-verify phone matches guestId (prevents spoofing)
     const { data: guest, error: guestError } = await supabase
       .from('allowed_guests')
       .select('id, name')
@@ -49,6 +50,30 @@ Deno.serve(async (req) => {
 
     if (guestError || !guest) {
       return errorResponse('Μη εξουσιοδοτημένη υποβολή.');
+    }
+
+    // Enforce overnight limit if requesting overnight stay
+    if (Boolean(rsvp.saturday_sleep)) {
+      const { data: existingRsvp } = await supabase
+        .from('rsvps')
+        .select('saturday_sleep')
+        .eq('guest_id', guest.id)
+        .maybeSingle();
+
+      const guestAlreadyHasOvernight = existingRsvp?.saturday_sleep === true;
+
+      if (!guestAlreadyHasOvernight) {
+        const { count } = await supabase
+          .from('rsvps')
+          .select('*', { count: 'exact', head: true })
+          .eq('saturday_sleep', true);
+
+        if ((count ?? 0) >= OVERNIGHT_LIMIT) {
+          return errorResponse(
+            'Δυστυχώς οι θέσεις διανυκτέρευσης είναι πλήρεις! Παρακαλώ επέλεξε χωρίς διανυκτέρευση ή επικοινώνησε με τους κουμπάρους.'
+          );
+        }
+      }
     }
 
     const record: Record<string, unknown> = {

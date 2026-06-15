@@ -30,7 +30,12 @@ export default function RsvpForm({ guest, onSubmitted, onBack }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const overnightAvailable = guest.overnightAvailable ?? 0;
+  const overnightFull = overnightAvailable <= 0;
+  const guestHasOvernight = guest.existingRsvp?.saturday_sleep === true;
+
   function handleOptionChange(key) {
+    if (key === 'saturday_sleep' && overnightFull && !guestHasOvernight) return;
     setRsvp((prev) => {
       const next = { ...prev };
       for (const opt of RSVP_OPTIONS) {
@@ -83,19 +88,41 @@ export default function RsvpForm({ guest, onSubmitted, onBack }) {
         <fieldset className="rsvp-form__options">
           <legend>Πώς θα έρθεις;</legend>
 
-          {RSVP_OPTIONS.map((option) => (
-            <label key={option.key} className="radio-row">
-              <input
-                type="radio"
-                name="attendance"
-                checked={selectedOption === option.key}
-                onChange={() => handleOptionChange(option.key)}
-                disabled={loading}
-              />
-              <span className="radio-row__label">{option.label}</span>
-            </label>
-          ))}
+          {RSVP_OPTIONS.map((option) => {
+            const isOvernight = option.key === 'saturday_sleep';
+            const disabled = loading || (isOvernight && overnightFull && !guestHasOvernight);
+
+            return (
+              <label
+                key={option.key}
+                className={`radio-row${disabled ? ' radio-row--disabled' : ''}`}
+              >
+                <input
+                  type="radio"
+                  name="attendance"
+                  checked={selectedOption === option.key}
+                  onChange={() => handleOptionChange(option.key)}
+                  disabled={disabled}
+                />
+                <span className="radio-row__label">
+                  {option.label}
+                  {isOvernight && overnightFull && !guestHasOvernight && (
+                    <span className="radio-row__full"> — Πλήρες</span>
+                  )}
+                  {isOvernight && !overnightFull && (
+                    <span className="radio-row__spots">
+                      {' '}({overnightAvailable} {overnightAvailable === 1 ? 'θέση' : 'θέσεις'} απομένουν)
+                    </span>
+                  )}
+                </span>
+              </label>
+            );
+          })}
         </fieldset>
+
+        <p className="rsvp-form__price-note">
+          * Οι τιμές ενδέχεται να αλλάξουν ανάλογα με το ενδιαφέρον.
+        </p>
 
         <div className="rsvp-form__field">
           <label htmlFor="allergies">Αλλεργίες / διατροφικές προτιμήσεις</label>

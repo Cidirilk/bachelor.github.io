@@ -62,6 +62,34 @@
   font-weight: 500;
 }
 
+.radio-row--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.radio-row--disabled:hover {
+  background: var(--bg);
+}
+
+.radio-row__full {
+  color: var(--error, #d32f2f);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.radio-row__spots {
+  color: var(--text-muted);
+  font-weight: 400;
+  font-size: 0.85rem;
+}
+
+.rsvp-form__price-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: -0.75rem 0 1.25rem;
+  font-style: italic;
+}
+
 .rsvp-form__field {
   margin-bottom: 1rem;
 }

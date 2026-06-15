@@ -7,8 +7,9 @@ import {
   isValidCyprusMobile,
 } from '../_shared/phone.ts';
 
+const OVERNIGHT_LIMIT = 12;
+
 Deno.serve(async (req) => {
-  // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders });
   }
@@ -26,7 +27,6 @@ Deno.serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
     );
 
-    // Look up guest by normalized phone (list never exposed to client)
     const { data: guest, error: guestError } = await supabase
       .from('allowed_guests')
       .select('id, name')
@@ -44,17 +44,28 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Fetch existing RSVP if any (for update flow)
     const { data: existingRsvp } = await supabase
       .from('rsvps')
       .select('*')
       .eq('guest_id', guest.id)
       .maybeSingle();
 
+    // Count current overnight bookings (exclude this guest if they already have one)
+    const { count: overnightCount } = await supabase
+      .from('rsvps')
+      .select('*', { count: 'exact', head: true })
+      .eq('saturday_sleep', true);
+
+    const guestHasOvernight = existingRsvp?.saturday_sleep === true;
+    const overnightTaken = overnightCount ?? 0;
+    const overnightAvailable = OVERNIGHT_LIMIT - overnightTaken + (guestHasOvernight ? 1 : 0);
+
     return jsonResponse({
       guestId: guest.id,
       name: guest.name,
       existingRsvp: existingRsvp || null,
+      overnightAvailable,
+      overnightLimit: OVERNIGHT_LIMIT,
     });
   } catch (err) {
     console.error('validate-phone error:', err);
