@@ -1,4 +1,4 @@
-# Μάζωξη πριν τον γάμο — RSVP App
+# Bachelor — RSVP App
 
 Mobile-first RSVP web app for a bachelor party event.
 
