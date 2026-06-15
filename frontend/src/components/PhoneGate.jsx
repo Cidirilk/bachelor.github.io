@@ -26,6 +26,8 @@ export default function PhoneGate({ onValidated }) {
         name: result.name,
         phone: normalized,
         existingRsvp: result.existingRsvp || null,
+        overnightAvailable: result.overnightAvailable,
+        overnightLimit: result.overnightLimit,
       });
     } catch (err) {
       setError(err.message);
