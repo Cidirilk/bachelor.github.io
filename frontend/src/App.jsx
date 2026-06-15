@@ -23,6 +23,7 @@ export default function App() {
 
   function handleSubmitted(rsvp) {
     setSubmittedRsvp(rsvp);
+    setGuest((prev) => ({ ...prev, existingRsvp: rsvp }));
     setStep(STEPS.CONFIRM);
   }
 
