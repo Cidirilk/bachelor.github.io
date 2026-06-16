@@ -15,6 +15,7 @@ const RSVP_FIELDS = [
   'saturday_dinner',
   'saturday_sleep',
   'sunday_breakfast',
+  'whiskey',
 ] as const;
 
 const OVERNIGHT_LIMIT = 12;
@@ -52,7 +53,6 @@ Deno.serve(async (req) => {
       return errorResponse('Μη εξουσιοδοτημένη υποβολή.');
     }
 
-    // Enforce overnight limit if requesting overnight stay
     if (Boolean(rsvp.saturday_sleep)) {
       const { data: existingRsvp } = await supabase
         .from('rsvps')

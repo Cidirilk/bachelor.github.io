@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { fetchAdminData } from '../api';
-import { RSVP_OPTIONS } from '../constants';
+import { RSVP_OPTIONS, DRINK_OPTIONS } from '../constants';
 import './Admin.css';
 
 function downloadCsv(rows, filename) {
@@ -19,14 +19,28 @@ function getAttendanceLabel(rsvp) {
   return opt ? opt.label : 'Δεν επέλεξε';
 }
 
+function getDrinksLabel(rsvp) {
+  if (!rsvp) return '—';
+  const drinks = DRINK_OPTIONS.filter((d) => rsvp[d.key]).map((d) => d.label);
+  return drinks.length > 0 ? drinks.join(', ') : '—';
+}
+
 function buildCsv(guests) {
-  const headers = ['Όνομα', 'Επιλογή', 'Αλλεργίες', 'Σημειώσεις', 'Ενημερώθηκε'];
+  const headers = [
+    'Όνομα',
+    'Επιλογή',
+    'Ποτά',
+    'Αλλεργίες',
+    'Σημειώσεις',
+    'Ενημερώθηκε',
+  ];
 
   const rows = guests.map((g) => {
     const r = g.rsvp || {};
     return [
       g.name,
       getAttendanceLabel(g.rsvp),
+      getDrinksLabel(g.rsvp),
       r.allergies || '',
       r.notes || '',
       r.updated_at || '',
@@ -106,6 +120,15 @@ export default function Admin() {
                 </li>
               ))}
             </ul>
+            <h3 className="admin__drink-title">Ποτά</h3>
+            <ul className="admin__totals-list">
+              {DRINK_OPTIONS.map((d) => (
+                <li key={d.key}>
+                  <span>{d.label}</span>
+                  <strong>{data.totals[d.key] ?? 0}</strong>
+                </li>
+              ))}
+            </ul>
             <p className="admin__summary">
               Απάντησαν: <strong>{data.respondedCount}</strong> /{' '}
               <strong>{data.totalGuests}</strong>
@@ -126,8 +149,8 @@ export default function Admin() {
                   <tr>
                     <th>Όνομα</th>
                     <th>Επιλογή</th>
+                    <th>Ποτά</th>
                     <th>Αλλεργίες</th>
-                    <th>Σημειώσεις</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -137,8 +160,8 @@ export default function Admin() {
                       <tr key={g.id} className={!g.rsvp ? 'admin__no-response' : ''}>
                         <td>{g.name}</td>
                         <td>{getAttendanceLabel(g.rsvp)}</td>
+                        <td>{getDrinksLabel(g.rsvp)}</td>
                         <td className="admin__allergies">{r.allergies || '—'}</td>
-                        <td>{r.notes || '—'}</td>
                       </tr>
                     );
                   })}

@@ -1,8 +1,9 @@
-import { RSVP_OPTIONS } from '../constants';
+import { RSVP_OPTIONS, DRINK_OPTIONS } from '../constants';
 import './Confirmation.css';
 
 export default function Confirmation({ guest, rsvp, onEdit }) {
   const selected = RSVP_OPTIONS.find((o) => rsvp[o.key]);
+  const selectedDrinks = DRINK_OPTIONS.filter((d) => rsvp[d.key]);
 
   return (
     <section className="confirmation card">
@@ -22,6 +23,12 @@ export default function Confirmation({ guest, rsvp, onEdit }) {
         <p className="confirmation__none">
           Δεν επέλεξες κάποια επιλογή — αν αλλάξει κάτι, ξαναμπες να
           ενημερώσεις!
+        </p>
+      )}
+
+      {selectedDrinks.length > 0 && (
+        <p className="confirmation__drinks">
+          🍻 {selectedDrinks.map((d) => d.label).join(', ')}
         </p>
       )}
 

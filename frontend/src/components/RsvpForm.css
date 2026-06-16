@@ -90,6 +90,52 @@
   font-style: italic;
 }
 
+.rsvp-form__drinks {
+  border: none;
+  padding: 0;
+  margin: 0 0 1.25rem;
+}
+
+.rsvp-form__drinks legend {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  padding: 0;
+}
+
+.drink-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.checkbox-row:hover {
+  background: var(--accent-soft);
+}
+
+.checkbox-row input[type='checkbox'] {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--accent);
+  flex-shrink: 0;
+}
+
+.checkbox-row__label {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
 .rsvp-form__field {
   margin-bottom: 1rem;
 }

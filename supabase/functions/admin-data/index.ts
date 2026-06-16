@@ -9,6 +9,7 @@ const RSVP_FIELDS = [
   'saturday_dinner',
   'saturday_sleep',
   'sunday_breakfast',
+  'whiskey',
 ] as const;
 
 Deno.serve(async (req) => {
@@ -29,7 +30,6 @@ Deno.serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
     );
 
-    // Fetch all guests with their RSVPs
     const { data: guests, error: guestsError } = await supabase
       .from('allowed_guests')
       .select(`
@@ -43,6 +43,7 @@ Deno.serve(async (req) => {
           saturday_dinner,
           saturday_sleep,
           sunday_breakfast,
+          whiskey,
           allergies,
           notes,
           updated_at
@@ -55,7 +56,6 @@ Deno.serve(async (req) => {
       return errorResponse('Σφάλμα φόρτωσης δεδομένων.', 500);
     }
 
-    // Compute totals per RSVP option
     const totals: Record<string, number> = {};
     for (const field of RSVP_FIELDS) {
       totals[field] = 0;
@@ -64,7 +64,6 @@ Deno.serve(async (req) => {
     let respondedCount = 0;
 
     const formattedGuests = (guests || []).map((g) => {
-      // Supabase returns rsvps as array for one-to-one via FK
       const rsvp = Array.isArray(g.rsvps) ? g.rsvps[0] : g.rsvps;
 
       if (rsvp) {

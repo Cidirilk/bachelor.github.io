@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { RSVP_OPTIONS, EMPTY_RSVP } from '../constants';
+import { RSVP_OPTIONS, DRINK_OPTIONS, EMPTY_RSVP } from '../constants';
 import { submitRsvp } from '../api';
 import './RsvpForm.css';
 
@@ -13,6 +13,7 @@ function buildInitialRsvp(existing) {
     saturday_dinner: existing.saturday_dinner ?? false,
     saturday_sleep: existing.saturday_sleep ?? false,
     sunday_breakfast: existing.sunday_breakfast ?? false,
+    whiskey: existing.whiskey ?? false,
     allergies: existing.allergies ?? '',
     notes: existing.notes ?? '',
   };
@@ -43,6 +44,10 @@ export default function RsvpForm({ guest, onSubmitted, onBack }) {
       }
       return next;
     });
+  }
+
+  function toggleDrink(key) {
+    setRsvp((prev) => ({ ...prev, [key]: !prev[key] }));
   }
 
   function handleFieldChange(field, value) {
@@ -123,6 +128,23 @@ export default function RsvpForm({ guest, onSubmitted, onBack }) {
         <p className="rsvp-form__price-note">
           * Οι τιμές ενδέχεται να αλλάξουν ανάλογα με το ενδιαφέρον.
         </p>
+
+        <fieldset className="rsvp-form__drinks">
+          <legend>Τι προτιμάς να πίνεις; 🍻</legend>
+          <div className="drink-grid">
+            {DRINK_OPTIONS.map((drink) => (
+              <label key={drink.key} className="checkbox-row">
+                <input
+                  type="checkbox"
+                  checked={rsvp[drink.key]}
+                  onChange={() => toggleDrink(drink.key)}
+                  disabled={loading}
+                />
+                <span className="checkbox-row__label">{drink.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
 
         <div className="rsvp-form__field">
           <label htmlFor="allergies">Αλλεργίες / διατροφικές προτιμήσεις</label>
